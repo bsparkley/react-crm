@@ -122,8 +122,6 @@ export default class CreateContact extends Component {
                             onChange={this.onChangeContactDepartment}
                             />
                 </div>
-                
-
                 <div className="form-group">
                     <input type="submit" value="Create Contact" className="btn btn-primary" />
                 </div>
