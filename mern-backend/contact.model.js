@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 let Contact = new Schema({
     
-    contact_first_name: {
+    contact_first: {
         type: String
     },
-    contact_last_name: {
+    contact_last: {
         type: String
     },
     contact_phone: {

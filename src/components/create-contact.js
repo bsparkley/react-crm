@@ -1,35 +1,36 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class CreateContact extends Component {
 
     constructor(props) {
         super(props);
 
-        this.onChangeContactFirstName = this.onChangeContactFirstName.bind(this);
-        this.onChangeContactLastame = this.onChangeContactLastName.bind(this);
+        this.onChangeContactFirst = this.onChangeContactFirst.bind(this);
+        this.onChangeContactLast = this.onChangeContactLast.bind(this);
         this.onChangeContactPhone = this.onChangeContactPhone.bind(this);
         this.onChangeContactEmail = this.onChangeContactEmail.bind(this);
         this.onChangeContactDepartment = this.onChangeContactDepartment.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            contact_first_name: '',
-            contact_last_name: '',
+            contact_first: '',
+            contact_last: '',
             contact_phone: '',
             contact_email: '',
-            contact_department: '',
+            contact_department: ''
         }
     }
 
-    onChangeContactFirstName(e) {
+    onChangeContactFirs(e) {
         this.setState({
-            contact_first_name: e.target.value
+            contact_first: e.target.value
         });
     }
 
-    onChangeContactLastName(e) {
+    onChangeContactLast(e) {
         this.setState({
-            contact_last_name: e.target.value
+            contact_last: e.target.value
         });
     }
 
@@ -55,23 +56,30 @@ export default class CreateContact extends Component {
         e.preventDefault();
         
         console.log(`Form submitted:`);
-        console.log(`Contact First Name: ${this.state.contact_first_name}`);
-        console.log(`Contact Last Name: ${this.state.contact_last_name}`);
+        console.log(`Contact First Name: ${this.state.contact_first}`);
+        console.log(`Contact Last Name: ${this.state.contact_last}`);
         console.log(`Contact Phone: ${this.state.contact_phone}`);
         console.log(`Contact Email: ${this.state.contact_email}`);
         console.log(`Contact Department: ${this.state.contact_department}`);
+
+        const newContact = {
+            contact_first: this.state.contact_first,
+            contact_last: this.state.contact_last,
+            contact_phone: this.state.contact_phone,
+            contact_email: this.state.contact_email,
+            contact_department: this.state.contact_department
+        };
+        axios.post('http://localhost:4000/contacts/add', newContact)
+            .then(res => console.log(res.data));
         
         this.setState({
-            contact_first_name: '',
-            contact_last_name: '',
+            contact_first: '',
+            contact_last: '',
             contact_phone: '',
             contact_email: '',
             contact_department: '',
-            todo_completed: false
         })
     }
-
-    
 
     render() {
         return (
@@ -82,8 +90,8 @@ export default class CreateContact extends Component {
                     <label>First Name: </label>
                     <input  type="text"
                             className="form-control"
-                            value={this.state.contact_first_name}
-                            onChange={this.onChangeContactFirstName}
+                            value={this.state.contact_first}
+                            onChange={this.onChangeContactFirs}
                             />
                 </div>
                 <div className="form-group">
@@ -91,8 +99,8 @@ export default class CreateContact extends Component {
                     <input 
                             type="text" 
                             className="form-control"
-                            value={this.state.contact_last_name}
-                            onChange={this.onChangeContactLastName}
+                            value={this.state.contact_last}
+                            onChange={this.onChangeContactLast}
                             />
                 </div>
                 <div className="form-group">
@@ -123,7 +131,7 @@ export default class CreateContact extends Component {
                             />
                 </div>
                 <div className="form-group">
-                    <input type="submit" value="Create Contact" className="btn btn-primary" />
+                    <input type="submit" value="Create Contact" className="" />
                 </div>
             </form>
         </div>
